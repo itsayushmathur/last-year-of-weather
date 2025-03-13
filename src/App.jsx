@@ -15,6 +15,8 @@ import {
   getWeatherDataByLocation,
 } from "./services/WeatherService";
 
+//will create  seperate components each for filters, and view.
+
 const BackgroundContainer = styled.div`
   background: url("https://wallpapers.com/images/featured/amoled-jz9qn9jzrcg8ai6k.jpg")
     no-repeat center center fixed;
@@ -78,12 +80,15 @@ const Message = styled.p`
 `;
 
 const App = () => {
+
+
   const [locations, setLocations] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState("");
   const [weatherData, setWeatherData] = useState([]);
   const [tabValue, setTabValue] = useState(0);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+
 
   useEffect(() => {
     const fetchLocations = async () => {
@@ -119,9 +124,14 @@ const App = () => {
     setTabValue(index);
   }, []);
 
+  //find uout todays date
+  const today = new Date().toISOString().split("T")[0];
+
   return (
     <BackgroundContainer>
       <AppContainer>
+
+      {/* header and logo */}
         <div style={{ display: "flex", alignItems: "center" }}>
           <img
             src="https://cdn-icons-png.flaticon.com/512/10127/10127236.png"
@@ -131,9 +141,8 @@ const App = () => {
           <Title>Weather</Title>
         </div>
 
-        {/* <Typography variant="h6" style={{ color: "#9c27b0" }}>
-          Select Location:
-        </Typography> */}
+        
+        {/* set filters to findweather data */}
         <div
           style={{
             display: "flex",
@@ -161,6 +170,7 @@ const App = () => {
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
               InputLabelProps={{ shrink: true }}
+              inputProps={{ max: today }} //cannot allow selection of future dates
             />
             <TextField
               label="End Date"
@@ -168,10 +178,12 @@ const App = () => {
               value={endDate}
               onChange={(e) => setEndDate(e.target.value)}
               InputLabelProps={{ shrink: true }}
+              inputProps={{ max: today }} //cannot allow selection of future dates
             />
           </div>
         </div>
 
+        {/* check if filters are set, then call service for data and display     */}
         {!selectedLocation ? (
           <Message>Please Select a location to proceed.</Message>
         ) : weatherData.length === 0 ? (

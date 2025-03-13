@@ -47,8 +47,6 @@ export const getWeatherDataByLocation = async (location, startDate, endDate) => 
     temperature: (totalTemp / count).toFixed(2),
   }));
 
-  // Optionally, sort the result by month if required
-  // result.sort((a, b) => new Date(a.month) - new Date(b.month));
-
+  
   return result;
 };
