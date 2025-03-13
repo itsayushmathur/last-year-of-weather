@@ -26,7 +26,8 @@
           { "month": "November 2024", "temperature": 28, "humidity": 70 },
           { "month": "December 2024", "temperature": 27, "humidity": 65 },
           { "month": "January 2025", "temperature": 26, "humidity": 65 },
-          { "month": "February 2025", "temperature": 27, "humidity": 65 }
+          { "month": "February 2025", "temperature": 27, "humidity": 65 },
+          { "month": "March 2025", "temperature": 30, "humidity": 70 }
         ]
       },
       {

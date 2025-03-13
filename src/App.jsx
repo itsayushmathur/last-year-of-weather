@@ -4,10 +4,7 @@ import { Container as MuiContainer } from "@mui/material";
 import LocationSelector from "./components/LocationSelector";
 import WeatherGraph from "./components/WeatherGraph";
 import WeatherList from "./components/WeatherList";
-import {
-  getLocations,
-  getWeatherDataByLocation,
-} from "./services/WeatherService";
+import { getLocations, getWeatherDataByLocation } from "./services/WeatherService";
 
 const Container = styled.div`
   background-color: white;
@@ -55,21 +52,34 @@ const App = () => {
   const [weatherData, setWeatherData] = useState([]);
   const [tabValue, setTabValue] = useState(0);
 
-  // fetch location when the page loads
+  // Fetches locations when the page loads via the weatherservice
   useEffect(() => {
-    const locs = getLocations();
-    setLocations(locs);
-    if (locs.length > 0) {
-      setSelectedLocation(locs[0]);
-    }
+    const fetchLocations = async () => {
+      try {
+        const locs = await getLocations();
+        setLocations(locs);
+        if (locs && locs.length > 0) {
+          setSelectedLocation(locs[0]);
+        }
+      } catch (error) {
+        console.error("Error fetching locations:", error);
+      }
+    };
+    fetchLocations();
   }, []);
 
-  //fetch weather data for the selected location
+  // Fetches  data for the selected location
   useEffect(() => {
     if (selectedLocation) {
-      getWeatherDataByLocation(selectedLocation)
-        .then((data) => setWeatherData(data))
-        .catch((err) => console.error("Error fetching weather data:", err));
+      const fetchWeather = async () => {
+        try {
+          const data = await getWeatherDataByLocation(selectedLocation);
+          setWeatherData(data);
+        } catch (err) {
+          console.error("Error fetching weather data:", err);
+        }
+      };
+      fetchWeather();
     }
   }, [selectedLocation]);
 
@@ -80,10 +90,9 @@ const App = () => {
   return (
     <MuiContainer maxWidth="md" sx={{ py: 4 }}>
       <h1 style={{ textAlign: "center" }}>Last Year of Weather</h1>
-      {/* a location dropdown menu */}
       <LocationSelector locations={locations} onSelect={setSelectedLocation} />
       <Container>
-        {/*will use tabs to switch between the graph view and list view for convenience */}
+        {/* Tabs for switching between the graph view and list view */}
         <TabsContainer>
           <Tab selected={tabValue === 0} onClick={() => handleTabChange(0)}>
             Graph View
