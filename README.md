@@ -1,6 +1,6 @@
 ## 📌 Overview  
 
-**Last Year of Weather** is a **Single Page Application (SPA)** that allows users to select a location and retrieve weather data for the past year. The app fetches data from an API (or mock data) and displays it in a visually appealing graph.  
+**Last Year of Weather** is a **Single Page Application (SPA)** that allows users to select a location and retrieve weather data for the past year. The app fetches data from an API and displays it in a visually appealing graph.  
 
 ## 🚀 Features  
 
