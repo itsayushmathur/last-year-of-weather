@@ -12,7 +12,7 @@ const LocationSelector = ({ locations, onSelect }) => {
   };
 
   return (
-    <Box sx={{ my: 2, minWidth: 120 }}>
+    <Box sx={{width: "100%" }}>
       <Autocomplete
         options={locations}
         inputValue={inputValue}

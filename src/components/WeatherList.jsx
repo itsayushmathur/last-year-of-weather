@@ -3,13 +3,13 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 
 const WeatherList = ({ data }) => {
   return (
-    <TableContainer component={Paper} sx={{maxHeight: '50vh'}}>
+    <TableContainer component={Paper} sx={{minHeight: '50vh', maxHeight: '50vh', marginBottom: '1rem', padding: '0 5rem'}}>
       <Table>
         <TableHead>
           <TableRow>
             <TableCell>Month</TableCell>
             <TableCell align="right">Temperature (°C)</TableCell>
-            <TableCell align="right">Humidity (%)</TableCell>
+            {/* <TableCell align="right">Humidity (%)</TableCell> */}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -19,7 +19,7 @@ const WeatherList = ({ data }) => {
                 {entry.month}
               </TableCell>
               <TableCell align="right">{entry.temperature}</TableCell>
-              <TableCell align="right">{entry.humidity}</TableCell>
+              {/* <TableCell align="right">{entry.humidity}</TableCell> */}
             </TableRow>
           ))}
         </TableBody>
