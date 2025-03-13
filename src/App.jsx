@@ -79,6 +79,19 @@ const Message = styled.p`
   margin-top: 1rem;
 `;
 
+
+const FiltersRow = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  gap: 1rem;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
+`;
+
 const App = () => {
 
 
@@ -143,14 +156,8 @@ const App = () => {
 
         
         {/* set filters to findweather data */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            marginBottom: "1rem",
-            gap: "1rem",
-            justifyContent: "space-between",
-          }}
+        <FiltersRow
+          
         >
           <LocationSelector
             locations={locations}
@@ -163,8 +170,9 @@ const App = () => {
         >
           Select Date Range:
         </Typography> */}
-          <div style={{ display: "flex", gap: "1rem"}}>
+          {/* <div style={{ display: "flex", gap: "1rem"}}> */}
             <TextField
+            style={{width: "100%"}}
               label="Start Date"
               type="date"
               value={startDate}
@@ -173,6 +181,7 @@ const App = () => {
               inputProps={{ max: today }} //cannot allow selection of future dates
             />
             <TextField
+            style={{width: "100%"}}
               label="End Date"
               type="date"
               value={endDate}
@@ -180,8 +189,8 @@ const App = () => {
               InputLabelProps={{ shrink: true }}
               inputProps={{ max: today }} //cannot allow selection of future dates
             />
-          </div>
-        </div>
+          {/* </div> */}
+        </FiltersRow>
 
         {/* check if filters are set, then call service for data and display     */}
         {!selectedLocation ? (
