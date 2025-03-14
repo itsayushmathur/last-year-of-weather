@@ -11,8 +11,15 @@ import {
 
 // BackgroundContainer provides the full-page background styling.
 const BackgroundContainer = styled.div`
-  background: url("https://wallpapers.com/images/featured/amoled-jz9qn9jzrcg8ai6k.jpg")
-    no-repeat center center fixed;
+  ${'' /* background: url("https://wallpapers.com/images/featured/amoled-jz9qn9jzrcg8ai6k.jpg")
+    no-repeat center center fixed; */}
+    background: linear-gradient(to bottom, #83a4d4, #b6fbff);
+
+
+
+
+
+
   min-height: 100vh;
   background-size: cover;
   padding: 2rem;
