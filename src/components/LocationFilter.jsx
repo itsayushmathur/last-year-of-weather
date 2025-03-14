@@ -3,7 +3,6 @@ import { TextField } from "@mui/material";
 import styled from "styled-components";
 import LocationSelector from "./LocationSelector";
 
-// FiltersRow arranges the filter inputs in a row with responsive behavior.
 const FiltersRow = styled.div`
   display: flex;
   align-items: center;
@@ -11,13 +10,12 @@ const FiltersRow = styled.div`
   margin-bottom: 1rem;
   gap: 1rem;
 
+${'' /* makes the filters row responsive for smaller screens  */}
   @media (max-width: 600px) {
     flex-direction: column;
   }
 `;
 
-// LocationFilter handles the UI for selecting the city and picking the start and end dates.
-// It is called from HomePage to encapsulate all filter-related inputs.
 const LocationFilter = ({
   locations,
   selectedLocation,
@@ -30,12 +28,13 @@ const LocationFilter = ({
 }) => {
   return (
     <FiltersRow>
-      {/* This is the Autocomplete input for selecting a city */}
+      {/* Location selector */}      
       <LocationSelector
         locations={locations}
         onSelect={onLocationSelect}
         selectedLocation={selectedLocation}
       />
+
       {/* Start date picker */}
       <TextField
         style={{ width: "100%" }}

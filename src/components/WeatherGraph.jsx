@@ -10,7 +10,7 @@ import {
   ResponsiveContainer
 } from 'recharts';
 
-// I modified it to adapt to either daily data (using the 'date' property) or hourly data (using the 'time' property).
+// modified it to adapt to either daily data (using the 'date' property) or hourly data (using the 'time' property).
 const WeatherGraph = ({ data }) => {
   // Determine whether the data is daily or hourly by checking for a 'date' property.
   const xKey = data.length > 0 && data[0].date ? "date" : "time";

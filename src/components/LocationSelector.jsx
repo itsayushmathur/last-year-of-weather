@@ -15,7 +15,7 @@ const LocationSelector = ({ locations, onSelect }) => {
     <Box sx={{ width: "100%" }}>
       <Autocomplete
         options={locations}
-        inputValue={inputValue}
+        inputValue={inputValue} // to show the typed value
         onInputChange={handleInputChange}
         onChange={(event, newValue) => onSelect(newValue)}
         renderInput={(params) => (

@@ -2,13 +2,13 @@ import React from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 
 
-// It dynamically labels the first column as "Date" for daily data or "Time" for hourly data.
+
 const WeatherList = ({ data }) => {
   // Determine the label for the first column based on the structure of the data.
   const firstColumnLabel = data.length > 0 && data[0].date ? "Date" : "Time";
 
   return (
-    <TableContainer component={Paper} sx={{ minHeight: '50vh', maxHeight: '50vh', marginBottom: '1rem', padding: '0 5rem' }}>
+    <TableContainer component={Paper} sx={{ minHeight: '50vh', maxHeight: '50vh', marginBottom: '1rem' }}>
       <Table>
         <TableHead>
           <TableRow>

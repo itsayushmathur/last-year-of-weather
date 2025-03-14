@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
-import { TextField } from "@mui/material";
+import { TextField, Typography } from "@mui/material";
 import LocationFilter from "./LocationFilter";
 import WeatherGraph from "./WeatherGraph";
 import WeatherList from "./WeatherList";
-import { getLocations, getWeatherDataByLocation } from "../services/WeatherService";
+import {
+  getLocations,
+  getWeatherDataByLocation,
+} from "../services/WeatherService";
 
 // BackgroundContainer provides the full-page background styling.
 const BackgroundContainer = styled.div`
@@ -147,6 +150,17 @@ const HomePage = () => {
           onEndDateChange={(e) => setEndDate(e.target.value)}
           today={today}
         />
+        <Typography
+          variant="body1"
+          style={{
+            color: "red",
+            marginBottom: "1rem",
+            fontSize: "0.7rem",
+            justifySelf: "end",
+          }}
+        >
+          *Select same dates for start and end dates to get hourly data.
+        </Typography>
 
         {/* Depending on the user’s selections, either prompt for more input or display weather data */}
         {!selectedLocation ? (
@@ -160,16 +174,10 @@ const HomePage = () => {
           <>
             {/* Tab navigation to toggle between different views */}
             <TabsContainer>
-              <Tab
-                selected={tabValue === 0}
-                onClick={() => handleTabChange(0)}
-              >
+              <Tab selected={tabValue === 0} onClick={() => handleTabChange(0)}>
                 Graph View
               </Tab>
-              <Tab
-                selected={tabValue === 1}
-                onClick={() => handleTabChange(1)}
-              >
+              <Tab selected={tabValue === 1} onClick={() => handleTabChange(1)}>
                 List View
               </Tab>
             </TabsContainer>
