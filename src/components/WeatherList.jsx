@@ -1,5 +1,6 @@
 import React from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import dayjs from 'dayjs';
 
 
 
@@ -20,7 +21,8 @@ const WeatherList = ({ data }) => {
           {data.map((entry, index) => (
             <TableRow key={index}>
               <TableCell component="th" scope="row">
-                {data[0].date ? entry.date : entry.time}
+                {/* use dayjs to properly format the entries */}
+                {data[0].date ? dayjs(entry.date).format('DD-MM-YYYY') : dayjs(entry.time).format('HH:mm')}
               </TableCell>
               <TableCell align="right">{entry.temperature}</TableCell>
             </TableRow>
