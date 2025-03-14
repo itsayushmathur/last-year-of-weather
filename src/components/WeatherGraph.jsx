@@ -16,7 +16,7 @@ const WeatherGraph = ({ data }) => {
   const xKey = data.length > 0 && data[0].date ? "date" : "time";
 
   return (
-    <Box sx={{ width: '100%', height: '40vh' }}>
+    <Box sx={{ width: '100%', height: '40vh', padding: '1rem 0 0 0' }}>
       <ResponsiveContainer>
         <LineChart data={data} margin={{ bottom: 50 }}>
           {/* Draw the temperature line */}
