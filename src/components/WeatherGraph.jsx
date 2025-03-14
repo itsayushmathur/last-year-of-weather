@@ -1,5 +1,5 @@
-import React from 'react';
-import { Box } from '@mui/material';
+import React from "react";
+import { Box } from "@mui/material";
 import {
   LineChart,
   Line,
@@ -7,8 +7,8 @@ import {
   XAxis,
   YAxis,
   Tooltip,
-  ResponsiveContainer
-} from 'recharts';
+  ResponsiveContainer,
+} from "recharts";
 
 // modified it to adapt to either daily data (using the 'date' property) or hourly data (using the 'time' property).
 const WeatherGraph = ({ data }) => {
@@ -16,9 +16,9 @@ const WeatherGraph = ({ data }) => {
   const xKey = data.length > 0 && data[0].date ? "date" : "time";
 
   return (
-    <Box sx={{ width: '100%', height: '40vh', padding: '1rem 0 0 0' }}>
+    <Box sx={{ width: "100%", height: "50vh", padding: "1rem 0 0 0" }}>
       <ResponsiveContainer>
-        <LineChart data={data} margin={{ bottom: 50 }}>
+        <LineChart data={data} margin={{ bottom: 66 }}>
           {/* Draw the temperature line */}
           <Line type="monotone" dataKey="temperature" stroke="#8884d8" />
           <CartesianGrid stroke="#ccc" />
@@ -27,7 +27,11 @@ const WeatherGraph = ({ data }) => {
             tickFormatter={(value) => {
               // If the data is daily, format the date in a short format.
               if (xKey === "date") {
-                return new Date(value).toLocaleDateString("en-US", { month: '2-digit', day: '2-digit' });
+                return new Date(value).toLocaleDateString("en-US", {
+                  day: "2-digit",
+                  month: "short",
+                  year: "numeric",
+                });
               }
               // For hourly data, extract the time portion from the ISO string.
               return value.substring(11, 16);
