@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Autocomplete, TextField, Box } from "@mui/material";
 
+// LocationSelector renders an autocomplete input for the user to select a city.
 const LocationSelector = ({ locations, onSelect }) => {
   const [inputValue, setInputValue] = useState("");
 
-  //removed the logic to open the dropdown only when user typed inside it. 
+   //removed the logic to open the dropdown only when user typed inside it. 
+  // Update the input value based on what the user types.
   const handleInputChange = (event, newInputValue) => {
     setInputValue(newInputValue);
   };

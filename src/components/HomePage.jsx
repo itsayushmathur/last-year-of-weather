@@ -6,7 +6,7 @@ import WeatherGraph from "./WeatherGraph";
 import WeatherList from "./WeatherList";
 import { getLocations, getWeatherDataByLocation } from "../services/WeatherService";
 
-// Styled Components
+// BackgroundContainer provides the full-page background styling.
 const BackgroundContainer = styled.div`
   background: url("https://wallpapers.com/images/featured/amoled-jz9qn9jzrcg8ai6k.jpg")
     no-repeat center center fixed;
@@ -18,6 +18,7 @@ const BackgroundContainer = styled.div`
   align-items: center;
 `;
 
+// AppContainer wraps the main content and provides white background and a drop shadow.
 const AppContainer = styled.div`
   background: #fff;
   padding: 0 2rem;
@@ -27,17 +28,20 @@ const AppContainer = styled.div`
   width: 100%;
 `;
 
+// Title is the main header text.
 const Title = styled.h1`
   text-align: center;
   color: rgb(183, 28, 222);
   margin-bottom: 1rem;
 `;
 
+// TabsContainer holds the tab buttons that let the user switch views.
 const TabsContainer = styled.div`
   display: flex;
   margin-bottom: 1rem;
 `;
 
+// Tab defines the style for each individual tab button.
 const Tab = styled.button`
   flex: 1;
   padding: 1rem;
@@ -57,6 +61,7 @@ const Tab = styled.button`
   }
 `;
 
+// Message is used to show prompts and error messages to the user.
 const Message = styled.p`
   text-align: center;
   font-size: 1.2rem;
@@ -65,8 +70,11 @@ const Message = styled.p`
   margin-top: 1rem;
 `;
 
-// HomePage Component
+// HomePage is the central component managing the state and flow of the application.
+// It fetches location data, manages user selections, and triggers weather API calls.
 const HomePage = () => {
+  // State variables to hold the list of locations, user-selected city, weather data,
+  // the current view (Graph or List), and the date range.
   const [locations, setLocations] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState("");
   const [weatherData, setWeatherData] = useState([]);
@@ -74,7 +82,7 @@ const HomePage = () => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
-  // Fetch available locations on mount
+  // On component mount, fetch the list of available locations.
   useEffect(() => {
     const fetchLocations = async () => {
       try {
@@ -87,11 +95,12 @@ const HomePage = () => {
     fetchLocations();
   }, []);
 
-  // Fetch weather data when filters are set
+  // When the user selects a location and date range, fetch the corresponding weather data.
   useEffect(() => {
     if (selectedLocation && startDate && endDate) {
       const fetchWeather = async () => {
         try {
+          // getWeatherDataByLocation returns either hourly or daily data based on the dates.
           const data = await getWeatherDataByLocation(
             selectedLocation,
             startDate,
@@ -106,17 +115,18 @@ const HomePage = () => {
     }
   }, [selectedLocation, startDate, endDate]);
 
+  // Handler to switch between the Graph and List views.
   const handleTabChange = useCallback((index) => {
     setTabValue(index);
   }, []);
 
-  // Get today's date to prevent future date selection
+  // I restrict the date picker to not allow future dates.
   const today = new Date().toISOString().split("T")[0];
 
   return (
     <BackgroundContainer>
       <AppContainer>
-        {/* Header */}
+        {/* Header section containing the logo and application title */}
         <div style={{ display: "flex", alignItems: "center" }}>
           <img
             src="https://cdn-icons-png.flaticon.com/512/10127/10127236.png"
@@ -126,7 +136,7 @@ const HomePage = () => {
           <Title>Weather</Title>
         </div>
 
-        {/* Filters */}
+        {/* Render the LocationFilter component that contains the location and date pickers */}
         <LocationFilter
           locations={locations}
           selectedLocation={selectedLocation}
@@ -138,7 +148,7 @@ const HomePage = () => {
           today={today}
         />
 
-        {/* Conditional Rendering Based on Filters/Data */}
+        {/* Depending on the user’s selections, either prompt for more input or display weather data */}
         {!selectedLocation ? (
           <Message>Please select a location to proceed.</Message>
         ) : weatherData.length === 0 ? (
@@ -148,6 +158,7 @@ const HomePage = () => {
           </Message>
         ) : (
           <>
+            {/* Tab navigation to toggle between different views */}
             <TabsContainer>
               <Tab
                 selected={tabValue === 0}
@@ -162,6 +173,7 @@ const HomePage = () => {
                 List View
               </Tab>
             </TabsContainer>
+            {/* Render either the WeatherGraph or WeatherList component based on the active tab */}
             {tabValue === 0 ? (
               <WeatherGraph data={weatherData} />
             ) : (
