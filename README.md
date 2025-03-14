@@ -22,12 +22,12 @@ Follow these steps to set up and run the project locally:
 
 ### 1️⃣ Clone the Repository
 ```sh
-git clone https://github.com/your-username/weather-app.git
+git clone https://github.com/your-username/climate-chronicles.git
 ```
 
 ### 2️⃣ Navigate to Project Directory
 ```sh
-cd weather-app
+cd climate-chronicles
 ```
 
 ### 3️⃣ Install Dependencies
