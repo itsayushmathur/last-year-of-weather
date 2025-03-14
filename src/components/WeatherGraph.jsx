@@ -35,7 +35,7 @@ const WeatherGraph = ({ data }) => {
             angle={-45}
             textAnchor="end"
             padding={{ left: 20, right: 20 }}
-            interval={0} // Show all labels without skipping any.
+            // interval={0} // Show all labels without skipping any.
           />
           <YAxis />
           <Tooltip />

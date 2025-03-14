@@ -34,7 +34,7 @@ const AppContainer = styled.div`
 // Title is the main header text.
 const Title = styled.h1`
   text-align: center;
-  color: rgb(183, 28, 222);
+  color:rgb(0, 0, 0);
   margin-bottom: 1rem;
 `;
 
@@ -53,12 +53,12 @@ const Tab = styled.button`
   background: none;
   border: none;
   border-bottom: ${(props) =>
-    props.selected ? "0.1rem solid rgb(190, 101, 205)" : "none"};
-  color: ${(props) => (props.selected ? "#9c27b0" : "#555")};
+    props.selected ? "0.1rem solid black" : "none"};
+  color: ${(props) => (props.selected ? "black" : "#555")};
   transition: 0.3s;
 
   &:hover {
-    background: rgb(201, 94, 220);
+    background: black;
     color: white;
     border-radius: 8px 8px 0 0;
   }
