@@ -25,8 +25,8 @@ const WeatherList = ({ data, isFahrenheit }) => {
     >
       <Table>
         <TableHead>
-          <TableRow sx={{ backgroundColor: "#1976d2" }}>
-            <TableCell sx={{ fontWeight: "bold", color: "white" }}>
+          <TableRow sx={{ backgroundColor: "#85a7d6" }}>
+            <TableCell sx={{ fontWeight: "bold", color: "#fff" }}>
               {firstColumnLabel}
             </TableCell>
             <TableCell
@@ -47,12 +47,12 @@ const WeatherList = ({ data, isFahrenheit }) => {
           {data.map((entry, index) => (
             <TableRow
               key={index}
-              sx={{ backgroundColor: index % 2 === 0 ? "#f5f5f5" : "white" }}
+              sx={{ backgroundColor: index % 2 === 0 ? "#e0e0e0" : "white" }}
             >
               <TableCell component="th" scope="row">
                 {/* use dayjs to properly format the entries */}
                 {data[0].date
-                  ? dayjs(entry.date).format("DD-MM-YYYY")
+                  ? dayjs(entry.date).format("DD-MMM-YYYY")
                   : dayjs(entry.time).format("HH:mm")}
               </TableCell>
               <TableCell align="right">
