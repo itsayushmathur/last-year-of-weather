@@ -69,7 +69,7 @@ export const getWeatherDataByLocation = async (location, startDate, endDate) => 
       const avgTemp = (
         (data.daily.temperature_2m_max[index] + data.daily.temperature_2m_min[index]) / 2
       ).toFixed(3);
-      return { date, temperature: avgTemp };
+      return { date, temperature: avgTemp, minTemp: data.daily.temperature_2m_min[index], maxTemp: data.daily.temperature_2m_max[index] };
     });
     return result;
   }
