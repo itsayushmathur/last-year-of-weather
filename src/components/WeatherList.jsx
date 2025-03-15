@@ -37,7 +37,7 @@ const WeatherList = ({ data }) => {
             <TableRow key={index} sx={{ backgroundColor: index % 2 === 0 ? "#f5f5f5" : "white" }}>
               <TableCell component="th" scope="row">
                 {data[0].date
-                  ? dayjs(entry.date).format("DD-MM-YYYY")
+                  ? dayjs(entry.date).format("DD-MMM-YYYY")
                   : dayjs(entry.time).format("HH:mm")}
               </TableCell>
               <TableCell align="right">{entry.minTemp}</TableCell>

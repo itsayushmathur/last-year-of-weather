@@ -9,6 +9,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import CustomTooltip from "./CustomTooltip"; // Import the custom tooltip component
 
 // modified it to adapt to either daily data (using the 'date' property) or hourly data (using the 'time' property).
 const WeatherGraph = ({ data }) => {
@@ -20,7 +21,7 @@ const WeatherGraph = ({ data }) => {
       <ResponsiveContainer>
         <LineChart data={data} margin={{ bottom: 66 }}>
           {/* Draw the temperature line */}
-          <Line type="monotone" dataKey="temperature" stroke="#8884d8" />
+          <Line type="monotone" dataKey="temperature" stroke="#8884d8" strokeWidth={2} />
           <CartesianGrid stroke="#ccc" />
           <XAxis
             dataKey={xKey}
@@ -42,7 +43,8 @@ const WeatherGraph = ({ data }) => {
             // interval={0} // Show all labels without skipping any.
           />
           <YAxis />
-          <Tooltip />
+          {/* Use CustomTooltip component to show detailed data on hover */}
+          <Tooltip content={<CustomTooltip xKey={xKey} />} />
         </LineChart>
       </ResponsiveContainer>
     </Box>
