@@ -8,6 +8,7 @@ import {
   getLocations,
   getWeatherDataByLocation,
 } from "../services/WeatherService";
+import dayjs from "dayjs";
 
 // BackgroundContainer provides the full-page background styling.
 const BackgroundContainer = styled.div`
@@ -88,8 +89,14 @@ const HomePage = () => {
   const [selectedLocation, setSelectedLocation] = useState("");
   const [weatherData, setWeatherData] = useState([]);
   const [tabValue, setTabValue] = useState(0);
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+
+  const [startDate, setStartDate] = useState(
+    dayjs().subtract(12, "month").format("YYYY-MM-DD")
+  );
+  const [endDate, setEndDate] = useState(
+    dayjs().subtract(1, "day").format("YYYY-MM-DD")
+  );
+
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -168,8 +175,9 @@ const HomePage = () => {
         {!selectedLocation ? (
           <Message>Please select a location to proceed.</Message>
         ) : loading ? (
-            
-          <Loader><CircularProgress/></Loader>
+          <Loader>
+            <CircularProgress />
+          </Loader>
         ) : weatherData.length === 0 ? (
           <Message>
             Weather data not present for selected location or date range. Please
