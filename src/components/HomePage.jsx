@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
-import { CircularProgress, TextField, Typography } from "@mui/material";
+import { CircularProgress, TextField, Typography, Switch, FormControlLabel } from "@mui/material";
 import LocationFilter from "./LocationFilter";
 import WeatherGraph from "./WeatherGraph";
 import WeatherList from "./WeatherList";
-import {
-  getLocations,
-  getWeatherDataByLocation,
-} from "../services/WeatherService";
+import { getLocations, getWeatherDataByLocation } from "../services/WeatherService";
+import dayjs from "dayjs";
 
 // BackgroundContainer provides the full-page background styling.
 const BackgroundContainer = styled.div`
@@ -88,9 +86,12 @@ const HomePage = () => {
   const [selectedLocation, setSelectedLocation] = useState("");
   const [weatherData, setWeatherData] = useState([]);
   const [tabValue, setTabValue] = useState(0);
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [startDate, setStartDate] = useState(dayjs().subtract(12, "month").format("YYYY-MM-DD"));
+  const [endDate, setEndDate] = useState(dayjs().subtract(1, "day").format("YYYY-MM-DD"));
   const [loading, setLoading] = useState(false);
+
+  // New state for temperature unit; false = Celsius, true = Fahrenheit.
+  const [isFahrenheit, setIsFahrenheit] = useState(false);
 
   useEffect(() => {
     const fetchLocations = async () => {
@@ -109,11 +110,7 @@ const HomePage = () => {
       setLoading(true);
       const fetchWeather = async () => {
         try {
-          const data = await getWeatherDataByLocation(
-            selectedLocation,
-            startDate,
-            endDate
-          );
+          const data = await getWeatherDataByLocation(selectedLocation, startDate, endDate);
           setWeatherData(data);
         } catch (err) {
           console.error("Error fetching weather data:", err);
@@ -143,6 +140,18 @@ const HomePage = () => {
           <Title>Weather</Title>
         </div>
 
+        {/* Added switch to toggle between Celsius and Fahrenheit */}
+        <FormControlLabel
+          control={
+            <Switch
+              checked={isFahrenheit}
+              onChange={(e) => setIsFahrenheit(e.target.checked)}
+              color="primary"
+            />
+          }
+          label={isFahrenheit ? "Fahrenheit" : "Celsius"}
+        />
+
         <LocationFilter
           locations={locations}
           selectedLocation={selectedLocation}
@@ -168,12 +177,12 @@ const HomePage = () => {
         {!selectedLocation ? (
           <Message>Please select a location to proceed.</Message>
         ) : loading ? (
-            
-          <Loader><CircularProgress/></Loader>
+          <Loader>
+            <CircularProgress />
+          </Loader>
         ) : weatherData.length === 0 ? (
           <Message>
-            Weather data not present for selected location or date range. Please
-            change filters.
+            Weather data not present for selected location or date range. Please change filters.
           </Message>
         ) : (
           <>
@@ -187,9 +196,11 @@ const HomePage = () => {
             </TabsContainer>
 
             {tabValue === 0 ? (
-              <WeatherGraph data={weatherData} />
+              // Passing the isFahrenheit flag to WeatherGraph
+              <WeatherGraph data={weatherData} isFahrenheit={isFahrenheit} />
             ) : (
-              <WeatherList data={weatherData} />
+              // Passing the isFahrenheit flag to WeatherList
+              <WeatherList data={weatherData} isFahrenheit={isFahrenheit} />
             )}
           </>
         )}
