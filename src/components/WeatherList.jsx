@@ -10,8 +10,13 @@ import {
 } from "@mui/material";
 import dayjs from "dayjs";
 
-const WeatherList = ({ data }) => {
+// now gets data and temp unit.
+const WeatherList = ({ data, isFahrenheit }) => {
+  // Determine the label for the first column based on the structure of the data.
   const firstColumnLabel = data.length > 0 && data[0].date ? "Date" : "Time";
+
+  // Function to convert Celsius to Fahrenheit.
+  const convertTemp = (temp) => (isFahrenheit ? (temp * 9) / 5 + 32 : temp);
 
   return (
     <TableContainer
@@ -24,24 +29,42 @@ const WeatherList = ({ data }) => {
             <TableCell sx={{ fontWeight: "bold", color: "white" }}>
               {firstColumnLabel}
             </TableCell>
-            <TableCell align="right" sx={{ fontWeight: "bold", color: "white" }}>
-              Min Temp (°C)
+            <TableCell
+              align="right"
+              sx={{ fontWeight: "bold", color: "white" }}
+            >
+              Min Temp (°{isFahrenheit ? "F" : "C"})
             </TableCell>
-            <TableCell align="right" sx={{ fontWeight: "bold", color: "white" }}>
-              Max Temp (°C)
+            <TableCell
+              align="right"
+              sx={{ fontWeight: "bold", color: "white" }}
+            >
+              Max Temp (°{isFahrenheit ? "F" : "C"})
             </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {data.map((entry, index) => (
-            <TableRow key={index} sx={{ backgroundColor: index % 2 === 0 ? "#f5f5f5" : "white" }}>
+            <TableRow
+              key={index}
+              sx={{ backgroundColor: index % 2 === 0 ? "#f5f5f5" : "white" }}
+            >
               <TableCell component="th" scope="row">
+                {/* use dayjs to properly format the entries */}
                 {data[0].date
-                  ? dayjs(entry.date).format("DD-MMM-YYYY")
+                  ? dayjs(entry.date).format("DD-MM-YYYY")
                   : dayjs(entry.time).format("HH:mm")}
               </TableCell>
-              <TableCell align="right">{entry.minTemp}</TableCell>
-              <TableCell align="right">{entry.maxTemp}</TableCell>
+              <TableCell align="right">
+                {entry.minTemp !== undefined
+                  ? convertTemp(entry.minTemp).toFixed(1)
+                  : "-"}
+              </TableCell>
+              <TableCell align="right">
+                {entry.maxTemp !== undefined
+                  ? convertTemp(entry.maxTemp).toFixed(1)
+                  : "-"}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
